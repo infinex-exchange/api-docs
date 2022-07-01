@@ -23,6 +23,31 @@ Sample response for error:
 	"error": "Missing data"
 }
 ```
+
+# Contents
+ * [Wallet endpoints](#wallet-endpoints)
+   - [Assets list](#assets-list)
+   - [Networks list](#networks-list)
+   - [Wallet balances](#wallet-balances)
+   - [Wallet transactions](#wallet-transactions)
+   - [Get deposit address](#get-deposit-address)
+   - [Get withdrawal informations](#get-withdrawal-informations)
+   - [Validate withdrawal address](#validate-withdrawal-address)
+   - [Request withdrawal](#request-withdrawal)
+   - [Query address book](#query-address-book)
+   - [Rename address book item](#rename-address-book-item)
+   - [Delete address book item](#delete-address-book-item)
+* [Spot exchange endpoints](#spot-exchange-endpoints)
+  - [Markets list and price tickers](#markets-list-and-price-tickers)
+  - [Aggregated order book](#aggregated-order-book)
+  - [Market trades](#market-trades)
+  - [Candlestick / K-Lines / OHLCV data](#candlestick--k-lines--ohlcv-data)
+  - [My open orders](#my-open-orders)
+  - [My orders history](#my-orders-history)
+  - [My trades history](#my-trades-history)
+  - [Post new order](#post-new-order)
+  - [Cancel order](#cancel-order)
+
 # Wallet endpoints
 
 ## Assets list
