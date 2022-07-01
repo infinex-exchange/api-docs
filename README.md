@@ -23,6 +23,520 @@ Sample response for error:
 	"error": "Missing data"
 }
 ```
+# Wallet endpoints
+
+## Assets list
+
+```http
+POST /wallet/assets
+```
+Get list of assets supported by exchange
+This endpoints returns a maximum of 50 records. Use the offset field to get the next part of data.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `symbols` | `array<string>` | *Optional*. Provide asset symbols if you want to get informations only about these assets |
+| `search` | `string` | *Optional*. Provide arbitrary string to search in assets list |
+| `offset` | `int` | *Optional*. Number of rows to skip. |
+
+ - `offset` is required if no `symbols` is set
+ - Only one of `symbols` or `search` can be specified in single request
+
+**Response:**
+`assets` - associative array of objects, indexed by asset symbols. The asset objects contains following fields:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | Asset full name |
+| `icon_url` | `string` | Asset icon URL (svg or png file) |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/assets -H 'Content-Type: application/json' -d '{"offset": 0}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "assets": {
+        "BCH": {
+            "name": "Bitcoin Cash",
+            "icon_url": "\/ico\/bch.svg"
+        },
+        "BPX": {
+            "name": "BPX",
+            "icon_url": "\/ico\/bpx.svg"
+        },
+        "BSV": {
+            "name": "Bitcoin SV",
+            "icon_url": "\/ico\/bsv.svg"
+        },
+        "BTC": {
+            "name": "Bitcoin",
+            "icon_url": "\/ico\/btc.svg"
+        }
+    ]
+}
+```
+
+## Networks list
+
+```http
+POST /wallet/networks
+```
+Get list of networks related to given asset
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `asset` | `string` | **Required**. Asset symbol |
+
+**Response:**
+`networks` - associative array of objects, indexed by network symbols. The network objects contains following fields:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `description` | `string` | Network description |
+| `icon_url` | `string` | Network icon URL (svg or png file) |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/networks -H 'Content-Type: application/json' -d '{"asset": "USDT"}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "networks": {
+        "ETH": {
+            "description": "Ethereum \/ ERC20",
+            "icon_url": "\/ico\/eth.svg"
+        },
+        "TRX": {
+	        "description": "Tron \/ TRC20",
+	        "icon_url": "\/ico\/trx.svg"
+        }
+    }
+}
+```
+
+## Wallet balances
+
+```http
+POST /wallet/balances
+POST /wallet/balances_ex
+```
+Get user account balances.
+This endpoints returns a maximum of 50 records. Use the offset field to get the next part of data.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `symbols` | `array<string>` | *Optional*. Provide asset symbols if you want to get informations only about these assets |
+| `search` | `string` | *Optional*. Provide arbitrary string to search in assets list |
+| `offset` | `int` | *Optional*. Number of rows to skip. |
+
+ - `offset` is required if no `symbols` is set
+ - Only one of `symbols` or `search` can be specified in single request
+
+**Response:**
+`balances` - associative array of objects, indexed by asset symbols. The balance objects contains following fields:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `total` | `string` | Asset full name |
+| `locked` | `string` | Asset icon URL (svg or png file) |
+| `avbl` | `string` | Asset icon URL (svg or png file) |
+
+`balances_ex` endpoint includes additional data and it is a combination of `/wallet/assets` and `/wallet/balances` endpoints:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | Asset full name |
+| `icon_url` | `string` | Asset icon URL (svg or png file) |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/balances -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "balances": {
+        "BTC": {
+            "total": "899999856.2147932498",
+            "locked": "0",
+            "avbl": "899999856.2147932498"
+        },
+        "TRX": {
+            "total": "900101825.5753",
+            "locked": "0",
+            "avbl": "900101825.5753"
+        },
+        "ETC": {
+            "total": "100000",
+            "locked": "0",
+            "avbl": "100000"
+        },
+        "XCH": {
+            "total": "99914.283",
+            "locked": "0",
+            "avbl": "99914.283"
+        }
+    ]
+}
+```
+
+## Wallet transactions
+
+```http
+POST /wallet/transactions
+```
+Query the wallet transactions history.
+This endpoints returns a maximum of 50 records. Use the offset field to get the next part of data.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `offset` | `int` | **Required**. Number of rows to skip. |
+| `asset` | `string` | *Optional*. Asset symbol to filter only this asset transactions. |
+| `type` | `string` | *Optional*. Transaction type to filter transactions: `DEPOSIT` or `WITHDRAWAL`. |
+| `status` | `string` | *Optional*. Transaction status to filter transactions: `PENDING` or `DONE`. |
+
+**Response:**
+`transactions` - array of transaction objects which contains following fields:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `xid` | `int` | Transaction unique id. |
+| `type` | `string` | `DEPOSIT` or `WITHDRAWAL` |
+| `asset` | `string` | Asset symbol |
+| `network` | `string` | Network symbol |
+| `amount` | `string` | Transaction amount |
+| `status` | `string` | `PENDING` or `DONE` |
+| `create_time` | `string` | Unix timestamp of transaction |
+| `address` | `string` | Deposit / withdrawal address |
+| `network_description` | `string` | Description of transaction network |
+| `icon_url` | `string` | Asset icon url |
+| `memo` | `string` | Transaction memo / routing key. **Optional: only for networks which requires memo (like Ripple)** |
+| `exec_time` | `string` | Unix timestamp. For deposit it's confirmation time. For withdrawal it's execute time. **Optional: only if transaction is confirmed / executed** |
+| `confirms` | `int` | Current confirmations count. **Optional: only if transaction type is deposit and transaction status is pending** |
+| `confirms_target` | `int` | Target confirmations count. **Optional: only if transaction type is deposit and transaction status is pending** |
+| `txid` | `string` | Blockchain transaction id. **Optional: absent if transaction type is withdrawal and transaction status is pending** |
+| `height` | `int` | Deposit transaction block height. **Optional: absent if transaction type is not deposit** |
+| `wd_fee_this` | `string` | Withdrawal fee. **Optional: absent if transaction type is not withdrawal or transaction status is pending** |
+| `memo_name` | `string` | If additional information is needed for the deposit / withdrawal in addition to the address, here is the name of this information (`Memo` / `Routing Key`), to be displayed to the user. **Optional: absent if additional information is not needed** |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/transactions -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "transactions": [
+        {
+            "xid": 12,
+            "type": "WITHDRAWAL",
+            "asset": "BPX",
+            "network": "BPX",
+            "amount": "2642.10169065",
+            "status": "PENDING",
+            "create_time": "1653485615.879955",
+            "address": "bpx1000000000000000000000000000000000000000000",
+            "network_description": "BPX",
+            "fee": "0.0002",
+            "icon_url": "\/ico\/bpx.svg"
+        }
+    ]
+}
+```
+
+## Get deposit address
+
+```http
+POST /wallet/deposit
+```
+Get account deposit address for given asset and network.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `asset` | `string` | **Required**. Asset symbol. |
+| `network` | `string` | **Required**. Network symbol. |
+
+**Response:**
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `operating` | `bool` | `true` if there are no problems with connection to given network. `false` if the full node of the exchange does not respond to the ping or is out of sync. |
+| `confirms_target` | `int` | Number of confirmations required to approve a deposit. |
+| `address` | `string` | Deposit address |
+| `memo` | `string` | Transaction memo / routing key. **Optional: only for networks which requires memo (like Ripple)** |
+| `memo_name` | `string` | If additional information is needed for the deposit / withdrawal in addition to the address, here is the name of this information (`Memo` / `Routing Key`), to be displayed to the user. **Optional: absent if additional information is not needed** |
+| `qr_content` | `string` | Full payment URL for QR code to be scanned by the wallet. **Optional: If the given network does not support the payment URL, this field is missing. You can generate a QR code containing just the wallet address.** |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/deposit -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "operating": true,
+    "confirms_target": 32,
+    "address": "bpx1000000000000000000000000000000000000000000",
+    "qr_content": "bpx_addr://bpx1000000000000000000000000000000000000000000"
+}
+```
+
+## Get withdrawal informations
+
+```http
+POST /wallet/withdraw/info
+```
+Get the informations you need before withdrawal.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `asset` | `string` | **Required**. Asset symbol. |
+| `network` | `string` | **Required**. Network symbol. |
+
+**Response:**
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `operating` | `bool` | `true` if there are no problems with connection to given network. `false` if the full node of the exchange does not respond to the ping or is out of sync. |
+| `fee_min` | `string` | Minimal withdrawal fee. |
+| `fee_max` | `string` | Maximal withdrawal fee. |
+| `prec` | `int` | Number of decimal places for withdrawal amount. |
+| `memo_name` | `string` | If additional information is needed for the deposit / withdrawal in addition to the address, here is the name of this information (`Memo` / `Routing Key`), to be displayed to the user. **Optional: absent if additional information is not needed** |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/withdraw/info -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "operating": true,
+    "fee_min": "0",
+    "fee_max": "0.0005",
+    "prec": 12
+}
+```
+
+## Validate withdrawal address
+
+```http
+POST /wallet/withdraw/validate
+```
+Validate withdrawal address (and Memo / Routing Key if needed).
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `asset` | `string` | **Required**. Asset symbol. |
+| `network` | `string` | **Required**. Network symbol. |
+| `address` | `string` | *Optional*. Address to validate. |
+| `memo` | `string` | *Optional*. Memo / routing key to validate. |
+
+ - One of `address` or `memo` or must be specified
+ - Both `address` and `memo` can be specified
+
+**Response:**
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `valid_address` | `bool` | Is address valid. **Optional: absent if `address` not specified in request** |
+| `valid_memo` | `bool` | Is memo / routing key valid. **Optional: absent if `memo` not specified in request** |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/withdraw/validate -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA"}'
+```
+
+**Response example:**
+```
+{
+	"success": true,
+    "valid_address": false
+}
+```
+
+## Request withdrawal
+
+```http
+POST /wallet/withdraw
+```
+Request funds withdrawal.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `asset` | `string` | **Required**. Asset symbol. |
+| `network` | `string` | **Required**. Network symbol. |
+| `address` | `string` | **Required**. Withdrawal wallet address. |
+| `amount` | `string` | **Required**. Withdrawal amount. |
+| `fee` | `string` | **Required**. Withdrawal fee amount. |
+| `memo` | `string` | *Optional*. Withdrawal wallet memo / routing key if needed. |
+| `adbk_name` | `string` | *Optional*. If a name is entered here, the withdrawal address will be saved in the address book under that name. |
+
+**Response:**
+
+`xid` - unique wallet transaction ID
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/withdraw -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA", "amount": "5.5", "fee": "0", "adbk_name": "my wallet"}'
+```
+
+**Response example:**
+```
+{
+	"success": true,
+    "xid": 2510
+}
+```
+
+## Query address book
+
+```http
+POST /wallet/addressbook
+```
+Query users address book.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `asset` | `string` | *Optional*. Asset symbol to filter only this asset addresses. |
+| `network` | `string` | *Optional*. Network symbol to filter only this network addresses. |
+
+ - `asset` and `network` must be specified both or neither
+
+**Response:**
+`addressbook` - associative array of address book objects, indexed by unique `adbkid`. Address book object contains following fields:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `asset` | `string` | Asset symbol |
+| `network` | `string` | Network symbol |
+| `address` | `string` | Saved address |
+| `name` | `string` | Saved address name |
+| `icon_url` | `string` | Asset icon url |
+| `network_description` | `string` | User friendly name of network |
+| `memo` | `string` | Saved memo / routing key. **Optional: only for networks which requires memo (like Ripple)** |
+| `memo_name` | `string` | If memo / routing key is saved with the address, here is the name of this information (`Memo` / `Routing Key`), to be displayed to the user. **Optional: absent if additional information is not needed** |
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/addressbook -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000"}'
+```
+
+**Response example:**
+```
+{
+    "success": true,
+    "addressbook": {
+        "3": {
+            "asset": "BPX",
+            "network": "BPX",
+            "address": "bpx1000000000000000000000000000000000000000000",
+            "name": "my wallet",
+            "icon_url": "\/ico\/bpx.svg",
+            "network_description": "BPX"
+        }
+    }
+}
+```
+
+## Rename address book item
+
+```http
+POST /wallet/addressbook/rename
+```
+Rename address book item.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `adbkid` | `int` | **Required**. Unique address book item ID. |
+| `new_name` | `string` | **Required**. New name. |
+
+**Response:**
+Only success/error.
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/addressbook/rename -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55, "new_name": "mobile wallet"}'
+```
+
+**Response example:**
+```
+{
+    "success": true
+}
+```
+
+## Delete address book item
+
+```http
+POST /wallet/addressbook/delete
+```
+Delete address book item.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `adbkid` | `int` | **Required**. Unique address book item ID. |
+
+**Response:**
+Only success/error.
+
+**Request example:**
+```
+curl -X POST https://api.vayamos.cc/wallet/addressbook/delete -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55}'
+```
+
+**Response example:**
+```
+{
+    "success": true
+}
+```
+
 # Spot exchange endpoints
 
 ## Markets list and price tickers
@@ -79,7 +593,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/markets -H 'Content-Type: application/json' -d '{"offset": 0}'
+curl -X POST https://api.vayamos.cc/spot/markets_ex -H 'Content-Type: application/json' -d '{"offset": 0}'
 ```
 
 **Response example:**
