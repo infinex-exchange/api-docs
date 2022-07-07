@@ -1,3 +1,4 @@
+
 # Introduction
 
  - The base endpoint is: **https://api.vayamos.cc**
@@ -89,19 +90,19 @@ curl -X POST https://api.vayamos.cc/wallet/assets -H 'Content-Type: application/
     "assets": {
         "BCH": {
             "name": "Bitcoin Cash",
-            "icon_url": "\/ico\/bch.svg"
+            "icon_url": "/ico/bch.svg"
         },
         "BPX": {
             "name": "BPX",
-            "icon_url": "\/ico\/bpx.svg"
+            "icon_url": "/ico/bpx.svg"
         },
         "BSV": {
             "name": "Bitcoin SV",
-            "icon_url": "\/ico\/bsv.svg"
+            "icon_url": "/ico/bsv.svg"
         },
         "BTC": {
             "name": "Bitcoin",
-            "icon_url": "\/ico\/btc.svg"
+            "icon_url": "/ico/btc.svg"
         }
     ]
 }
@@ -139,12 +140,12 @@ curl -X POST https://api.vayamos.cc/wallet/networks -H 'Content-Type: applicatio
     "success": true,
     "networks": {
         "ETH": {
-            "description": "Ethereum \/ ERC20",
-            "icon_url": "\/ico\/eth.svg"
+            "description": "Ethereum / ERC20",
+            "icon_url": "/ico/eth.svg"
         },
         "TRX": {
-	        "description": "Tron \/ TRC20",
-	        "icon_url": "\/ico\/trx.svg"
+	        "description": "Tron / TRC20",
+	        "icon_url": "/ico/trx.svg"
         }
     }
 }
@@ -284,7 +285,7 @@ curl -X POST https://api.vayamos.cc/wallet/transactions -H 'Content-Type: applic
             "address": "bpx1000000000000000000000000000000000000000000",
             "network_description": "BPX",
             "fee": "0.0002",
-            "icon_url": "\/ico\/bpx.svg"
+            "icon_url": "/ico/bpx.svg"
         }
     ]
 }
@@ -496,7 +497,7 @@ curl -X POST https://api.vayamos.cc/wallet/addressbook -H 'Content-Type: applica
             "network": "BPX",
             "address": "bpx1000000000000000000000000000000000000000000",
             "name": "my wallet",
-            "icon_url": "\/ico\/bpx.svg",
+            "icon_url": "/ico/bpx.svg",
             "network_description": "BPX"
         }
     }
@@ -627,10 +628,10 @@ curl -X POST https://api.vayamos.cc/spot/markets_ex -H 'Content-Type: applicatio
     "success": true,
     "markets": [
         {
-            "pair": "BPX\/USDT",
+            "pair": "BPX/USDT",
             "base": "BPX",
             "quote": "USDT",
-            "icon_url": "\/ico\/bpx.svg",
+            "icon_url": "/ico/bpx.svg",
             "price": "0.001",
             "change": "0",
             "previous": "0.001",
@@ -645,10 +646,10 @@ curl -X POST https://api.vayamos.cc/spot/markets_ex -H 'Content-Type: applicatio
             "min_order": "3"
         },
         {
-            "pair": "BTC\/BPX",
+            "pair": "BTC/BPX",
             "base": "BTC",
             "quote": "BPX",
-            "icon_url": "\/ico\/btc.svg",
+            "icon_url": "/ico/btc.svg",
             "price": "2.34",
             "change": "0",
             "previous": "2.34",
@@ -893,7 +894,7 @@ curl -X POST https://api.vayamos.cc/spot/open_orders -H 'Content-Type: applicati
     "orders": [
         {
             "obid": 903,
-            "pair": "DASH\/BTC",
+            "pair": "DASH/BTC",
             "time": "1653821715.093741",
             "side": "SELL",
             "price": "0.0000000003",
@@ -978,7 +979,7 @@ curl -X POST https://api.vayamos.cc/spot/orders_history -H 'Content-Type: applic
                 }
             ],
             "obid": 920,
-            "pair": "BTC\/USDT",
+            "pair": "BTC/USDT",
             "time": "1653823558.243453",
             "side": "BUY",
             "total": "10",
@@ -993,7 +994,7 @@ curl -X POST https://api.vayamos.cc/spot/orders_history -H 'Content-Type: applic
         {
             "trades": [],
             "obid": 903,
-            "pair": "DASH\/BTC",
+            "pair": "DASH/BTC",
             "time": "1653821715.093741",
             "side": "SELL",
             "price": "0.0000000003",
@@ -1052,7 +1053,7 @@ curl -X POST https://api.vayamos.cc/spot/trades_history -H 'Content-Type: applic
     "trades": [
         {
             "time": "1653823558.258593",
-            "pair": "BTC\/USDT",
+            "pair": "BTC/USDT",
             "fee": "0.00000027",
             "price": "25500",
             "amount": "0.0003",
@@ -1062,7 +1063,7 @@ curl -X POST https://api.vayamos.cc/spot/trades_history -H 'Content-Type: applic
         },
         {
             "time": "1653823555.164274",
-            "pair": "BTC\/USDT",
+            "pair": "BTC/USDT",
             "fee": "0.00000027",
             "price": "25500",
             "amount": "0.0003",
@@ -1072,7 +1073,7 @@ curl -X POST https://api.vayamos.cc/spot/trades_history -H 'Content-Type: applic
         },
         {
             "time": "1653823552.044859",
-            "pair": "BTC\/USDT",
+            "pair": "BTC/USDT",
             "fee": "0.00000027",
             "price": "25500",
             "amount": "0.0003",
