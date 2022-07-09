@@ -4,11 +4,11 @@
  - The base endpoint is: **https://api.vayamos.cc**
  - All requests should be sent in JSON format using the POST method
  - Some endpoints will require an API Key, which can be generated in the Vayamos account settings
- - **Never share your API key/secret key to ANYONE**
+ - **Never share your API key to ANYONE**
 
 # Error handling
 
-Each API response contains a `success` (boolean) field. When `success` is `false`, the `message` (string) field with the error description is also included.
+Each API response contains a `success` (boolean) field. When `success` is `false`, the `error` (string) field with the error description is also included.
 
 Sample response for success:
 ```javascript
