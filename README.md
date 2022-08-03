@@ -177,9 +177,9 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `total` | `string` | Asset full name |
-| `locked` | `string` | Asset icon URL (svg or png file) |
-| `avbl` | `string` | Asset icon URL (svg or png file) |
+| `total` | `string` | Total account balance |
+| `locked` | `string` | Locked amount (e.g. open spot orders, pending withdrawals) |
+| `avbl` | `string` | Balance available to spend (avbl = total - locked) |
 
 `balances_ex` endpoint includes additional data and it is a combination of `/wallet/assets` and `/wallet/balances` endpoints:
 
