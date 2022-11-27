@@ -1,9 +1,9 @@
 
 # Introduction
 
- - The base endpoint is: **https://api.vayamos.cc**
+ - The base endpoint is: **https://api.infinex.cc**
  - All requests should be sent in JSON format using the POST method
- - Some endpoints will require an API Key, which can be generated in the Vayamos account settings
+ - Some endpoints will require an API Key, which can be generated in the Infinex account settings
  - **Never share your API key to ANYONE**
 
 # Error handling
@@ -80,7 +80,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/assets -H 'Content-Type: application/json' -d '{"offset": 0}'
+curl -X POST https://api.infinex.cc/wallet/assets -H 'Content-Type: application/json' -d '{"offset": 0}'
 ```
 
 **Response example:**
@@ -131,7 +131,7 @@ Get list of networks related to given asset
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/networks -H 'Content-Type: application/json' -d '{"asset": "USDT"}'
+curl -X POST https://api.infinex.cc/wallet/networks -H 'Content-Type: application/json' -d '{"asset": "USDT"}'
 ```
 
 **Response example:**
@@ -190,7 +190,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/balances -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+curl -X POST https://api.infinex.cc/wallet/balances -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
 ```
 
 **Response example:**
@@ -266,7 +266,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/transactions -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+curl -X POST https://api.infinex.cc/wallet/transactions -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
 ```
 
 **Response example:**
@@ -319,7 +319,7 @@ Get account deposit address for given asset and network.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/deposit -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
+curl -X POST https://api.infinex.cc/wallet/deposit -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
 ```
 
 **Response example:**
@@ -360,7 +360,7 @@ Get the informations you need before withdrawal.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/withdraw/info -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
+curl -X POST https://api.infinex.cc/wallet/withdraw/info -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX"}'
 ```
 
 **Response example:**
@@ -403,7 +403,7 @@ Validate withdrawal address (and Memo / Routing Key if needed).
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/withdraw/validate -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA"}'
+curl -X POST https://api.infinex.cc/wallet/withdraw/validate -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA"}'
 ```
 
 **Response example:**
@@ -440,7 +440,7 @@ Request funds withdrawal.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/withdraw -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA", "amount": "5.5", "fee": "0", "adbk_name": "my wallet"}'
+curl -X POST https://api.infinex.cc/wallet/withdraw -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "asset": "BPX", "network": "BPX", "address": "AAAAAAAAAAAAAA", "amount": "5.5", "fee": "0", "adbk_name": "my wallet"}'
 ```
 
 **Response example:**
@@ -484,7 +484,7 @@ Query users address book.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/addressbook -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000"}'
+curl -X POST https://api.infinex.cc/wallet/addressbook -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000"}'
 ```
 
 **Response example:**
@@ -524,7 +524,7 @@ Only success/error.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/addressbook/rename -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55, "new_name": "mobile wallet"}'
+curl -X POST https://api.infinex.cc/wallet/addressbook/rename -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55, "new_name": "mobile wallet"}'
 ```
 
 **Response example:**
@@ -553,7 +553,7 @@ Only success/error.
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/wallet/addressbook/delete -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55}'
+curl -X POST https://api.infinex.cc/wallet/addressbook/delete -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "adbkid": 55}'
 ```
 
 **Response example:**
@@ -619,7 +619,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/markets_ex -H 'Content-Type: application/json' -d '{"offset": 0}'
+curl -X POST https://api.infinex.cc/spot/markets_ex -H 'Content-Type: application/json' -d '{"offset": 0}'
 ```
 
 **Response example:**
@@ -690,7 +690,7 @@ Query the spot exchange orderbook
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/orderbook -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT"}'
+curl -X POST https://api.infinex.cc/spot/orderbook -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT"}'
 ```
 
 **Response example:**
@@ -754,7 +754,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/trades -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT", "offset": 0}'
+curl -X POST https://api.infinex.cc/spot/trades -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT", "offset": 0}'
 ```
 
 **Response example:**
@@ -818,7 +818,7 @@ This endpoints returns a maximum of 500 records. Use the `from` and `to` fields 
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/candlestick -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT", "res": "1D", "from": 1641031490, "to": 1656673495}'
+curl -X POST https://api.infinex.cc/spot/candlestick -H 'Content-Type: application/json' -d '{"pair": "BPX/USDT", "res": "1D", "from": 1641031490, "to": 1656673495}'
 ```
 
 **Response example:**
@@ -884,7 +884,7 @@ This endpoints returns a maximum of 50 records. Use the `offset` field to get ne
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/open_orders -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+curl -X POST https://api.infinex.cc/spot/open_orders -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
 ```
 
 **Response example:**
@@ -959,7 +959,7 @@ This endpoints returns a maximum of 50 records. Use the `offset` field to get ne
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/orders_history -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+curl -X POST https://api.infinex.cc/spot/orders_history -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
 ```
 
 **Response example:**
@@ -1043,7 +1043,7 @@ This endpoints returns a maximum of 50 records. Use the `offset` field to get ne
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/trades_history -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
+curl -X POST https://api.infinex.cc/spot/trades_history -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "offset": 0}'
 ```
 
 **Response example:**
@@ -1111,7 +1111,7 @@ This endpoint returns success if the order has been correctly sent to the Matchi
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/open_orders/new -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "pair": "BPX/USDT", "side": "BUY", "type": "MARKET", "time_in_force": "FOK", "amount": "100.50"}'
+curl -X POST https://api.infinex.cc/spot/open_orders/new -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "pair": "BPX/USDT", "side": "BUY", "type": "MARKET", "time_in_force": "FOK", "amount": "100.50"}'
 ```
 
 **Response example:**
@@ -1140,7 +1140,7 @@ This endpoint returns success if the order cancel request has been correctly sen
 
 **Request example:**
 ```
-curl -X POST https://api.vayamos.cc/spot/open_orders/cancel -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "obid": 20}'
+curl -X POST https://api.infinex.cc/spot/open_orders/cancel -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "obid": 20}'
 ```
 
 **Response example:**
