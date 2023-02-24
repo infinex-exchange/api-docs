@@ -1,4 +1,5 @@
 
+
 # Introduction
 
  - The base endpoint is: **https://api.infinex.cc**
@@ -250,7 +251,7 @@ This endpoints returns a maximum of 50 records. Use the offset field to get the 
 | `asset` | `string` | Asset symbol |
 | `network` | `string` | Network symbol |
 | `amount` | `string` | Transaction amount |
-| `status` | `string` | `PENDING` or `DONE` |
+| `status` | `string` | `PENDING`, `PROCESSING`, `PENDING_CANCEL`, `CANCELED` or `DONE` |
 | `create_time` | `string` | Unix timestamp of transaction |
 | `address` | `string` | Deposit / withdrawal address |
 | `network_description` | `string` | Description of transaction network |
@@ -448,6 +449,35 @@ curl -X POST https://api.infinex.cc/wallet/withdraw -H 'Content-Type: applicatio
 {
 	"success": true,
     "xid": 2510
+}
+```
+
+## Cancel withdrawal
+
+```http
+POST /wallet/withdraw/cancel
+```
+Request withdrawal cancelation. Only withdrawal with the status `PENDING` or `PROCESSING` can be canceled.
+
+**Request parameters:**
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `api_key` | `string` | **Required**. Account API key. |
+| `xid` | `int` | **Required**. Withdrawal transaction ID. |
+
+**Response:**
+Only success/error. This endpoint returns success if the status of withdrawal transaction was successfully changed from `PENDING` or `PROCESSING` to `PENDING_CANCEL`. If the transaction has already been sent to the blockchain in the meantime, it will not be canceled. You can be sure that the withdrawal is canceled only when the status changes to `CANCELED`.
+
+**Request example:**
+```
+curl -X POST https://api.infinex.cc/wallet/withdraw/cancel -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "xid": 1234}'
+```
+
+**Response example:**
+```
+{
+	"success": true
 }
 ```
 
