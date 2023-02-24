@@ -36,6 +36,7 @@ Sample response for error:
    - [Get withdrawal informations](#get-withdrawal-informations)
    - [Validate withdrawal address](#validate-withdrawal-address)
    - [Request withdrawal](#request-withdrawal)
+   - [Cancel withdrawal](#cancel-withdrawal)
    - [Query address book](#query-address-book)
    - [Rename address book item](#rename-address-book-item)
    - [Delete address book item](#delete-address-book-item)
