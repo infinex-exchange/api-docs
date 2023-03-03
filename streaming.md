@@ -180,12 +180,12 @@ Sample event message:
 
 ## Market trade
 
-```http
+```
 <pair>@marketTrade
 ```
 
 **Example stream names:**
-```http
+```
 BPX/USDT@marketTrade
 BTC/USDT@marketTrade
 ETH/BTC@marketTrade
@@ -217,12 +217,12 @@ You will receive a message about each trade on a selected pair.
 ```
 ## Candlestick
 
-```http
+```
 <pair>@candleStick/<resolution>
 ```
 
 **Example stream names:**
-```http
+```
 BPX/USDT@candleStick/1
 BTC/USDT@candleStick/60
 ETH/BTC@candleStick/1D
@@ -257,12 +257,12 @@ You will receive live OHLCV feed. This stream name contain additional parameter 
 ```
 ## Ticker
 
-```http
+```
 <pair>@ticker
 ```
 
 **Example stream names:**
-```http
+```
 BPX/USDT@ticker
 BTC/USDT@ticker
 ETH/BTC@ticker
@@ -291,12 +291,12 @@ You will receive basic information about the market price changes.
 ```
 ## Extended ticker
 
-```http
+```
 <pair>@tickerEx
 ```
 
 **Example stream names:**
-```http
+```
 BPX/USDT@tickerEx
 BTC/USDT@tickerEx
 ETH/BTC@tickerEx
@@ -333,12 +333,12 @@ You will receive all events from `@ticker` stream + some extended informations.
 ```
 ## Order book
 
-```http
+```
 <pair>@orderBook
 ```
 
 **Example stream names:**
-```http
+```
 BPX/USDT@orderBook
 BTC/USDT@orderBook
 ETH/BTC@orderBook
