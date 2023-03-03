@@ -233,7 +233,7 @@ You will receive live OHLCV feed. This stream name contain additional parameter 
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `time` | `int` | UNIX timestamp of trade |
+| `time` | `int` | UNIX timestamp of candle start |
 | `pair` | `string` | Trading pair symbol. |
 | `open` | `string` | Candle open price. |
 | `high` | `string` | Candle highest price. |
