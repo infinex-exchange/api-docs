@@ -1,5 +1,6 @@
 
 
+
 # Introduction
 
  - The base endpoint is: **https://api.infinex.cc**
@@ -1136,22 +1137,41 @@ Post new spot order.
 | `amount` | `string` | *Optional.* Order amount. Not required for market price order if `total` was provided. |
 | `total` | `string` | *Optional.* Order total value. Not required for limit and stop limit orders, and for market order if `amount` was provided. |
 | `stop` | `string` | *Optional.* Order stop price. Not required for orders other than stop limit. |
+| `resp_type` | `string` | *Optional.* Response type. `NONE`, `ACK` or `RESULT`. Default `NONE` if not set |
 
 **Response:**
-This endpoint returns success if the order has been correctly sent to the Matching Engine. Any errors occured during order processing by the matching engine will not be included in the response of this function. Success response does not guarantee that the order was accepted. You should subscribe to the event stream from the matching engine.
+If `resp_type` = `NONE` or not set, this endpoint returns success if the order has been correctly sent to the Matching Engine. Any errors occured during order processing by the matching engine will not be included in the response of this function. Success response does not guarantee that the order was accepted. You should subscribe to the event stream from the matching engine for more details.
+If `resp_type` = `ACK`, this endpoint is waiting for the accept/reject event from the matching engine and returns it. Success response guarantees that the order has been posted to the orderbook, but does not provide information that it has been filled partially / filled in total / canceled / killed etc. If your order is rejected, e.g. due to insufficient account balance, you will receive an error response. This response type also contains the `obid` of the posted order.
+If `resp_type` = `RESULT`, this endpoint is waiting for the execution result event from the matching engine and returns it. Success response guarantees that the order has been posted to the orderbook. Response also provides information that it has been filled partially / filled in total / canceled / killed etc. If your order is rejected, e.g. due to insufficient account balance, you will receive an error response. This response type also contains the `obid` of the posted order.
 
 **Request example:**
 ```
 curl -X POST https://api.infinex.cc/spot/open_orders/new -H 'Content-Type: application/json' -d '{"api_key": "00000000000000000000", "pair": "BPX/USDT", "side": "BUY", "type": "MARKET", "time_in_force": "FOK", "amount": "100.50"}'
 ```
 
-**Response example:**
+**Response example (resp_type=NONE):**
 ```
 {
     "success": true
 }
 ```
-
+**Response example (resp_type=ACK):**
+```
+{
+    "obid": 955,
+    "status": "OPEN",
+    "success": true
+}
+```
+**Response example (resp_type=RESULT):**
+```
+{
+    "obid": 956,
+    "status": "FILLED",
+    "filled": "150",
+    "success": true
+}
+```
 ## Cancel order
 
 ```http
