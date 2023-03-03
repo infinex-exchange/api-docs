@@ -177,6 +177,8 @@ Sample event message:
 * [Ticker](#ticker)
 * [Extended ticker](#extended-ticker)
 * [Order book](#order-book)
+* [My orders (private)](#my-orders)
+* [My trades (private)](#my-trades)
 
 ## Market trade
 
@@ -363,5 +365,91 @@ You will receive all necessary informations to keep your local orderbook up to d
 	"amount": "0",
 	"price": "0.022",
 	"side": "SELL"
+}
+```
+
+
+## My orders
+**This stream is private. You cannot subscribe it before performing the `auth` operation.**
+
+```
+myOrders
+```
+This stream contains updates about your own orders.
+
+**Message fields:**
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `event` | `string` | Event type: `orderAccepted`, `orderRejected`, `orderUpdate`. |
+| `pair` | `string` | Trading pair symbol. |
+| `obid` | `int` | *Optional.* Order unique ID. |
+| `side` | `string` | *Optional.* Order side: `BUY` or `SELL` |
+| `type` | `string` | *Optional.* Order type: `MARKET`, `LIMIT`, `STOP_LIMIT` |
+| `time` | `int` | *Optional.* UNIX timestamp of event. |
+| `time_in_force` | `string` | *Optional.* `GTC`, `IOC` or `FOK` |
+| `base` | `string` | *Optional.* Base asset symbol. |
+| `quote` | `string` | *Optional.* Quote asset symbol. |
+| `price` | `string` | *Optional.* Order price. |
+| `amount` | `string` | *Optional.* Order amount. |
+| `total` | `string` | *Optional.* Order total value. |
+| `stop` | `string` | *Optional.* Order stop price. |
+| `status` | `string` | *Optional.* Order status: `OPEN`, `FILLED`, `KILLED`, `CANCELED`. |
+| `triggered` | `bool` | *Optional.* True means that stop limit order was just triggered . |
+| `filled` | `string` | *Optional.* Filled amount. |
+| `reason` | `string` | *Optional.* Reason of order rejection. |
+
+**Example message:**
+```
+{
+	amount: "1500",
+	class: "data",
+	event: "orderUpdate",
+	obid: 951,
+	pair: "BPX/USDT",
+	price: "0.04",
+	side: "BUY",
+	status: "CANCELED",
+	stream: "myOrders"
+}
+```
+
+
+## My trades
+**This stream is private. You cannot subscribe it before performing the `auth` operation.**
+
+```
+myTrades
+```
+This stream contains your own trades.
+
+**Message fields:**
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `time` | `int` | UNIX timestamp of the trade. |
+| `price` | `string` | Trade price. |
+| `amount` | `string` | Trade amount. |
+| `total` | `string` | Trade total value. |
+| `side` | `string` | Trade side: `BUY` or `SELL` |
+| `pair` | `string` | Trading pair symbol. |
+| `obid` | `int` | Order unique ID. |
+| `role` | `string` | `MAKER` or `TAKER` |
+| `fee` | `string` | Trade fee |
+
+**Example message:**
+```
+{
+	amount: "30"
+	class: "data"
+	fee: "0"
+	obid: 957
+	pair: "BPX/USDT"
+	price: "0.1"
+	role: "TAKER"
+	side: "BUY"
+	stream: "myTrades"
+	time: "1677879562.317149"
+	total: "3"
 }
 ```
