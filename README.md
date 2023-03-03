@@ -1141,7 +1141,9 @@ Post new spot order.
 
 **Response:**
 If `resp_type` = `NONE` or not set, this endpoint returns success if the order has been correctly sent to the Matching Engine. Any errors occured during order processing by the matching engine will not be included in the response of this function. Success response does not guarantee that the order was accepted. You should subscribe to the event stream from the matching engine for more details.
+
 If `resp_type` = `ACK`, this endpoint is waiting for the accept/reject event from the matching engine and returns it. Success response guarantees that the order has been posted to the orderbook, but does not provide information that it has been filled partially / filled in total / canceled / killed etc. If your order is rejected, e.g. due to insufficient account balance, you will receive an error response. This response type also contains the `obid` of the posted order.
+
 If `resp_type` = `RESULT`, this endpoint is waiting for the execution result event from the matching engine and returns it. Success response guarantees that the order has been posted to the orderbook. Response also provides information that it has been filled partially / filled in total / canceled / killed etc. If your order is rejected, e.g. due to insufficient account balance, you will receive an error response. This response type also contains the `obid` of the posted order.
 
 **Request example:**
