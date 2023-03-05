@@ -8,4 +8,4 @@
 
 | Language | Library | Author |
 | :--- | :--- | :--- |
-| PHP | [infinex-php](https://github.com/infinex-exchange/infinex-php) | Infinex official |
+| PHP | [infinex-php](https://github.com/infinex-exchange/infinex-php) | **Infinex official** |
