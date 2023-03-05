@@ -9,3 +9,4 @@
 | Language | Library | Author |
 | :--- | :--- | :--- |
 | PHP | [infinex-php](https://github.com/infinex-exchange/infinex-php) | **Infinex official** |
+| Python | [pyInfinex](https://github.com/ageorge95/pyInfinex) | ageorge95 |
